@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const ControllerMovie = require('./../controllers/ControllerMovies')
+const ControllerMovie = require('../controllers/ControllerMovies')
 
 router.get('/', ControllerMovie.getAll)
 router.post('/', ControllerMovie.create)

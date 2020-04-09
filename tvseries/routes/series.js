@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const ControllerTVSeries = require('./../controllers/ControllerTVSeries')
+const ControllerTVSeries = require('../controllers/ControllerTVSeries')
 
 router.get('/', ControllerTVSeries.getAll)
 router.post('/', ControllerTVSeries.create)

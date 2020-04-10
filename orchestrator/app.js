@@ -43,6 +43,19 @@ const typeDefs = gql `
 		movies: [Movie]
 		tvseries: [Series]
 	}
+
+	type Mutation {
+		addMovie(title: String
+			overview: String
+			poster_path: String
+			popularity: Int
+			tags: [String]): Movie!
+		addSeries(title: String
+			overview: String
+			poster_path: String
+			popularity: Int
+			tags: [String]): Series!
+	}
 `
 
 const resolvers = {
@@ -62,8 +75,7 @@ const resolvers = {
 					}
 				})
 				.catch(console.log)
-		}
-		,
+		},
 		tvseries () {
 			return redis.get('series')
 				.then(reply => {
@@ -79,6 +91,61 @@ const resolvers = {
 					}
 				})
 				.catch(console.log)
+		}
+	}
+	,
+	Mutation: {
+		addMovie (parent, args) {
+			const data = {
+				title: args.title,
+				overview: args.overview,
+				poster_path: args.poster_path,
+				popularity: args.popularity,
+				tags: args.tags
+			}
+			let added
+			console.log(data)
+			return axios({
+				method: 'POST',
+				url: 'http://localhost:3000/movies',
+				data: data
+			})
+				.then(({ data }) => {
+					redis.del('movies')
+					added = data
+					return axios.get('http://localhost:3000/movies')
+				})
+				.then(({ data }) => {
+					redis.set('movies', JSON.stringify(data))
+					return added
+				})
+				.catch(err => console.log(err.response.data))
+		},
+		addSeries (parent, args) {
+			const data = {
+				title: args.title,
+				overview: args.overview,
+				poster_path: args.poster_path,
+				popularity: args.popularity,
+				tags: args.tags
+			}
+			let added
+			console.log(data)
+			return axios({
+				method: 'POST',
+				url: 'http://localhost:3001/series',
+				data: data
+			})
+				.then(({ data }) => {
+					redis.del('series')
+					added = data
+					return axios.get('http://localhost:3001/series')
+				})
+				.then(({ data }) => {
+					redis.set('series', JSON.stringify(data))
+					return added
+				})
+				.catch(err => console.log(err.response.data))
 		}
 	}
 }

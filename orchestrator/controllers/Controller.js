@@ -1,6 +1,5 @@
 const axios = require('axios')
-const Redis = require('ioredis')
-const redis = new Redis
+
 
 class Controller {
 	static getAll(req, res, next) {

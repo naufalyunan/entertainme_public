@@ -1,20 +1,3 @@
-// if(process.env.NODE_ENV == 'development') {
-// 	require('dotenv').config()
-// }
-
-// const express = require('express')
-// const app = express()
-// const routes = require('./routes')
-// const port = process.env.PORT
-
-// app.use(express.json())
-// app.use(express.urlencoded({ extended: true }))
-// app.use(routes)
-
-// app.listen(port, () => {
-// 	console.log(`orchestrator run in port ${port}`)
-// })
-
 const { gql, ApolloServer } = require('apollo-server')
 const axios = require('axios')
 const Redis = require('ioredis')
@@ -55,6 +38,22 @@ const typeDefs = gql `
 			poster_path: String
 			popularity: Int
 			tags: [String]): Series!
+		getMovieById(_id: ID): Movie!
+		getSeriesById(_id: ID): Series!
+		updateMovie(_id: ID 
+			title: String
+			overview: String
+			poster_path: String
+			popularity: Int
+			tags: [String]): Movie!
+		updateSeries(_id: ID 
+			title: String
+			overview: String
+			poster_path: String
+			popularity: Int
+			tags: [String]): Movie!
+		deleteMovie(_id: ID): Movie!
+		deleteSeries(_id: ID): Series!
 	}
 `
 
@@ -146,6 +145,114 @@ const resolvers = {
 					return added
 				})
 				.catch(err => console.log(err.response.data))
+		},
+		getMovieById(parent, args) {
+			const { _id } = args
+			return axios({
+				method: 'GET',
+				url: `http://localhost:3010/movies/${_id}`
+			})
+				.then(({ data }) => data)
+				.catch(console.log)
+		},
+		getSeriesById(parent, args) {
+			const { _id } = args
+			return axios({
+				method: 'GET',
+				url: `http://localhost:3001/series/${_id}`
+			})
+				.then(({ data }) => data)
+				.catch(console.log)
+		},
+		updateMovie(parent, args) {
+			const { _id, title, overview, popularity, tags, poster_path } = args
+			const data = {
+				title,
+				overview,
+				popularity,
+				poster_path,
+				tags
+			}
+			console.log(data)
+			let updated
+			return axios({
+				method: 'PATCH',
+				url: `http://localhost:3010/movies/${_id}`,
+				data: data
+			})
+				.then(({ data }) => {
+					redis.del('movies')
+					updated = data
+					return axios.get('http://localhost:3010/movies')
+				})
+				.then(({ data }) => {
+					redis.set('movies', JSON.stringify(data))
+					return updated
+				})
+				.catch(err => console.log(err.response.data))
+		},
+		updateSeries(parent, args) {
+			const { _id, title, overview, popularity, tags, poster_path } = args
+			const data = {
+				title,
+				overview,
+				popularity,
+				poster_path,
+				tags
+			}
+			console.log(data)
+			let updated
+			return axios({
+				method: 'PATCH',
+				url: `http://localhost:3001/series/${_id}`,
+				data: data
+			})
+				.then(({ data }) => {
+					redis.del('series')
+					updated = data
+					return axios.get('http://localhost:3001/series')
+				})
+				.then(({ data }) => {
+					redis.set('series', JSON.stringify(data))
+					return updated
+				})
+				.catch(err => console.log(err.response.data))
+		},
+		deleteMovie(parent, args) {
+			const { _id } = args
+			let deleted
+			return axios({
+				method: 'DELETE',
+				url: `http://localhost:3010/movies/${_id}`
+			})
+				.then(({ data }) => {
+					redis.del('movies')
+					deleted = data
+					return axios.get('http://localhost:3010/movies')
+				})
+				.then(({ data }) => {
+					redis.set('movies', JSON.stringify(data))
+					return deleted
+				})
+				.catch(console.log)
+		},
+		deleteSeries(parent, args) {
+			const { _id } = args
+			let deleted
+			return axios({
+				method: 'DELETE',
+				url: `http://localhost:3001/series/${_id}`
+			})
+				.then(({ data }) => {
+					redis.del('series')
+					deleted = data
+					return axios.get('http://localhost:3001/series')
+				})
+				.then(({ data }) => {
+					redis.set('series', JSON.stringify(data))
+					return deleted
+				})
+				.catch(console.log)
 		}
 	}
 }

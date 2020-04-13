@@ -66,7 +66,7 @@ const resolvers = {
 					if (reply) {
 						return JSON.parse(reply)
 					} else {
-						return axios.get('http://localhost:3000/movies')
+						return axios.get('http://localhost:3010/movies')
 							.then(({ data }) => {
 								redis.set('movies', JSON.stringify(data))
 								return data
@@ -107,13 +107,13 @@ const resolvers = {
 			console.log(data)
 			return axios({
 				method: 'POST',
-				url: 'http://localhost:3000/movies',
+				url: 'http://localhost:3010/movies',
 				data: data
 			})
 				.then(({ data }) => {
 					redis.del('movies')
 					added = data
-					return axios.get('http://localhost:3000/movies')
+					return axios.get('http://localhost:3010/movies')
 				})
 				.then(({ data }) => {
 					redis.set('movies', JSON.stringify(data))

@@ -1,14 +1,37 @@
 .card-container{
-	width: 80%;
-	height: 5rem;
+	width: 20rem;
+	height: auto;
 	display: flex;
 	justify-content: center;
-	background-color: #dbdbdb;
-	border: 1px solid black;
+	background-color: #000;
+	border: 1px solid #dbdbdb;
 	flex-direction: column;
-	padding: 1rem;
-	color: #cf7500
+	padding-bottom: 1rem;
+	color: #cf7500;
+	align-items: center;
 }
 .card-container:hover{
-	background-color: honeydew;
+	background-color: #363636;
+}
+
+.card-img {
+	width: 100%;
+	height: 10rem;
+	margin-bottom: 0.5rem;
+}
+
+.opt-btn {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	width: 100%;
+}
+
+.btn-option {
+	text-decoration: none;
+	color: #cf7500;
+}
+
+.btn-option:hover {
+	color: #dbdbdb
 }

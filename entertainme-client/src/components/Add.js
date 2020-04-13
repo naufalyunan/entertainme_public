@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
 import { AddMovie, MoviesSeries, AddSeries } from '../queries'
 import { useMutation } from '@apollo/react-hooks'
 
 import './styles/Add.css'
 
 export default function Add() {
+	const history = useHistory()
 	//movie
 	const [title, setTitle] = useState('')
 	const [overview, setOverview] = useState('')
@@ -55,6 +57,7 @@ export default function Add() {
 		setPoster_path('')
 		setPopularity('')
 		setTags([])
+		history.push('/entertainme/movies')
 	}
 
 	const submitSeries = e => {
@@ -74,6 +77,7 @@ export default function Add() {
 		setPoster_pathSeries('')
 		setPopularitySeries('')
 		setTagsSeries([])
+		history.push('/entertainme/series')
 	}
 
 	return (

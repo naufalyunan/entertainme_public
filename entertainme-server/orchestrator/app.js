@@ -25,6 +25,8 @@ const typeDefs = gql `
 	type Query {
 		movies: [Movie]
 		tvseries: [Series]
+		getMovieById(_id: ID): Movie
+		getSeriesById(_id: ID): Series
 	}
 
 	type Mutation {
@@ -38,8 +40,6 @@ const typeDefs = gql `
 			poster_path: String
 			popularity: Int
 			tags: [String]): Series!
-		getMovieById(_id: ID): Movie!
-		getSeriesById(_id: ID): Series!
 		updateMovie(_id: ID 
 			title: String
 			overview: String
@@ -51,7 +51,7 @@ const typeDefs = gql `
 			overview: String
 			poster_path: String
 			popularity: Int
-			tags: [String]): Movie!
+			tags: [String]): Series!
 		deleteMovie(_id: ID): Movie!
 		deleteSeries(_id: ID): Series!
 	}
@@ -89,6 +89,24 @@ const resolvers = {
 							.catch(console.log)
 					}
 				})
+				.catch(console.log)
+		},
+		getMovieById(parent, args) {
+			const { _id } = args
+			return axios({
+				method: 'GET',
+				url: `http://localhost:3010/movies/${_id}`
+			})
+				.then(({ data }) => data)
+				.catch(console.log)
+		},
+		getSeriesById(parent, args) {
+			const { _id } = args
+			return axios({
+				method: 'GET',
+				url: `http://localhost:3001/series/${_id}`
+			})
+				.then(({ data }) => data)
 				.catch(console.log)
 		}
 	}
@@ -146,24 +164,6 @@ const resolvers = {
 				})
 				.catch(err => console.log(err.response.data))
 		},
-		getMovieById(parent, args) {
-			const { _id } = args
-			return axios({
-				method: 'GET',
-				url: `http://localhost:3010/movies/${_id}`
-			})
-				.then(({ data }) => data)
-				.catch(console.log)
-		},
-		getSeriesById(parent, args) {
-			const { _id } = args
-			return axios({
-				method: 'GET',
-				url: `http://localhost:3001/series/${_id}`
-			})
-				.then(({ data }) => data)
-				.catch(console.log)
-		},
 		updateMovie(parent, args) {
 			const { _id, title, overview, popularity, tags, poster_path } = args
 			const data = {
@@ -189,7 +189,7 @@ const resolvers = {
 					redis.set('movies', JSON.stringify(data))
 					return updated
 				})
-				.catch(err => console.log(err.response.data))
+				.catch(err => console.log(err))
 		},
 		updateSeries(parent, args) {
 			const { _id, title, overview, popularity, tags, poster_path } = args

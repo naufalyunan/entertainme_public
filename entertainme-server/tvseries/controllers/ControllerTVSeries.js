@@ -68,7 +68,7 @@ class ControllerTVSeries {
 						overview: overview || oldSeries.overview,
 						poster_path: poster_path || oldSeries.poster_path,
 						popularity: popularity || oldSeries.popularity,
-						tags: tags || oldSeries.tags
+						tags: tags.length < 0 ? oldSeries.tags : tags
 					}
 					return TVSeries.update({ _id: ObjectId(id) }, payload)
 				}

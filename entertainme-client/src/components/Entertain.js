@@ -7,12 +7,13 @@ import { MoviesSeries } from '../queries'
 
 import Movie from './Movie'
 import Series from './Series'
+import Loading from './Loading'
 
 export default function Entertain() {
 	const {url, path} = useRouteMatch()
 	const {loading, error, data} = useQuery(MoviesSeries)
 	
-	if(loading) return <h1>Loading...</h1>
+	if(loading) return <Loading/>
 	if(error) return <h1>Error</h1>
 
 

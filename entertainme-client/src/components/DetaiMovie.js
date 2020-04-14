@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/react-hooks'
 import { GetMovieById } from './../queries'
 
 import './styles/Detail.css'
+import Loading from './Loading'
 
 export default function DetailMovie() {
 	const { id } = useParams()
@@ -14,7 +15,7 @@ export default function DetailMovie() {
 		}
 	})
 
-	if(loading) return <h1>Loading...</h1>
+	if(loading) return <Loading />
 	if(error) return <h1>Error</h1>
 
 	const backToMovie = () => {

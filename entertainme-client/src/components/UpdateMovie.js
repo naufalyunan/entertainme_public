@@ -5,6 +5,7 @@ import { GetMovieById, UpdateMovie } from '../queries'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import './styles/Update.css'
+import Loading from './Loading'
 
 export default function UpdateMovieForm() {
 	const { id } = useParams()
@@ -21,7 +22,7 @@ export default function UpdateMovieForm() {
 	console.log(data)
 	const [updateMovieById] = useMutation(UpdateMovie)
 
-	if(loading) return <h1>Loading...</h1>
+	if(loading) return <Loading />
 	if(error) return <h1>Error, {JSON.stringify(error)}</h1>
 
 	const updateMovie = (e) => {

@@ -5,6 +5,7 @@ import { GetSeriesById, UpdateSeries } from '../queries'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
 import './styles/Update.css'
+import Loading from './Loading'
 
 export default function UpdateSeriesForm() {
 	const { id } = useParams()
@@ -21,7 +22,7 @@ export default function UpdateSeriesForm() {
 	console.log(id)
 	const [updateSeries] = useMutation(UpdateSeries)
 
-	if(loading) return <h1>Loading...</h1>
+	if(loading) return <Loading />
 	if(error) return <h1>Error, {JSON.stringify(error)}</h1>
 
 	const submitUpdateSeries = (e) => {

@@ -25,7 +25,7 @@ export default function Entertain() {
 				</div>
 					<Switch>
 						<Route exact path={path}>
-							<h1>Choose</h1>
+							<h1>Choose Your Entertainment</h1>
 						</Route>
 						<Route path={`${path}/movies`}>
 							<div id="movie-container">

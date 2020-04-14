@@ -24,6 +24,11 @@
 	background-color: #dbdbdb;
 	border-radius: 5px;
 }
+.submit-btn:hover {
+	background-color: #f0a500;
+	cursor: pointer;
+}
+
 #add-movie, #add-series {
 	width: 50%;
 }

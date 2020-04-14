@@ -10,6 +10,8 @@ import Entertain from './components/Entertain'
 import Add from './components/Add'
 import UpdateMovieForm from './components/UpdateMovie'
 import UpdateSeriesForm from './components/UpdateSeries'
+import DetailMovie from './components/DetaiMovie'
+import DetailSeries from './components/DetailSeries'
 
 const client = new ApolloClient({
   uri: 'http://localhost:4000'
@@ -30,6 +32,12 @@ function App() {
             </Route>
             <Route exact path="/entertainme/series/update/:id">
               <UpdateSeriesForm />
+            </Route>
+            <Route exact path="/entertainme/movies/:id">
+              <DetailMovie />
+            </Route>
+            <Route exact path="/entertainme/series/:id">
+              <DetailSeries />
             </Route>
             <Route path="/entertainme/add">
               <Add />

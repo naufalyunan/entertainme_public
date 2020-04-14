@@ -4,6 +4,8 @@ import { useParams, useHistory } from 'react-router-dom'
 import { GetMovieById, UpdateMovie } from '../queries'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
+import './styles/Update.css'
+
 export default function UpdateMovieForm() {
 	const { id } = useParams()
 	const history = useHistory()
@@ -37,7 +39,7 @@ export default function UpdateMovieForm() {
 	}
 
 	return (
-		<div>
+		<div className="update-container">
 			<h1 className="title" >Update Movie</h1>
 				<form onSubmit={ updateMovie }>
 					<input onChange={ e => setTitle(e.target.value) } 

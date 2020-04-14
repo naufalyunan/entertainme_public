@@ -4,6 +4,8 @@ import { useParams, useHistory } from 'react-router-dom'
 import { GetSeriesById, UpdateSeries } from '../queries'
 import { useQuery, useMutation } from '@apollo/react-hooks'
 
+import './styles/Update.css'
+
 export default function UpdateSeriesForm() {
 	const { id } = useParams()
 	const history = useHistory()
@@ -38,7 +40,7 @@ export default function UpdateSeriesForm() {
 	}
 
 	return (
-		<div>
+		<div className="update-container">
 			<h1 className="title" >Update Series</h1>
 				<form onSubmit={ submitUpdateSeries }>
 					<input onChange={ e => setTitle(e.target.value) } 

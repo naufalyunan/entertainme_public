@@ -29,8 +29,8 @@ export default function Series(props) {
 			<img className="card-img" src={ series.poster_path } alt={ series.title }/>
 			<div className="opt-btn">
 				<Link className="btn-option" to={`/entertainme/series/update/${series._id}`} >Update</Link>
-				<h4>{ series.title }</h4>
-				<button onClick={ handleDelete } className="btn-option" >Delete</button>			
+				<Link className="btn-option" to={`/entertainme/series/${series._id}`}>{ series.title }</Link>
+				<button onClick={ handleDelete } className="btn-option btn" >Delete</button>			
 			</div>
 		</div>
 	)

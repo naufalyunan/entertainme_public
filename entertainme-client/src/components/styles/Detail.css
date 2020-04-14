@@ -1,0 +1,82 @@
+.detail-container {
+	height: 90vh;
+	width: 100%;
+	background-color: #000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.dtl-img-container {
+	height: 50%;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.dtl-img {
+	width: auto;
+	height: 80%;
+	border-radius: 5px;
+}
+
+.dtl-content-container {
+	height: 50%;
+	width: 100%;
+	background-color: #000;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 1rem;
+	border-top: 1px solid #dbdbdb;
+}
+
+.dtl-text {
+	font-size: 1rem;
+	color: #cf7500;
+	padding: 1rem;
+}
+
+.dtl-title {
+	font-size: 2rem;
+	padding-bottom: 2rem;
+}
+
+.dtl-text-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+}
+
+.left-col, .right-col {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	width: 50%;
+	height: 100%;
+	border: 1px solid #dbdbdb;
+}
+.back-btn {
+	width: 3rem;
+	height: 1.5rem;
+	border-radius: 5px;
+	background-color: transparent;
+	color: #cf7500;
+	font-weight: bold;
+	font-size: 1.5rem;
+	border: none;
+	margin: 1rem;
+	margin-bottom: 2rem;
+}
+
+.back-btn:hover {
+	cursor: pointer;
+	color: #f0a500;
+}

@@ -30,8 +30,8 @@ export default function Movie(props) {
 			<img className="card-img" src={ movie.poster_path } alt={ movie.title }/>
 			<div className="opt-btn">
 				<Link className="btn-option" to={`/entertainme/movies/update/${movie._id}`} >Update</Link>
-				<h4>{ movie.title }</h4>
-				<button onClick={ handleDelete } className="btn-option" >Delete</button>			
+				<Link className="btn-option" to={`/entertainme/movies/${movie._id}`}>{ movie.title }</Link>
+				<button onClick={ handleDelete } className="btn-option btn" >Delete</button>			
 			</div>
 		</div>
 	)

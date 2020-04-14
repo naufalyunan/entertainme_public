@@ -33,7 +33,7 @@ export default function UpdateMovieForm() {
 			overview,
 			poster_path,
 			popularity: Number(popularity),
-			tags
+			tags: tags.length > 0 ? tags : data.getMovieById.tags
 		}
 		console.log(payload)
 		updateMovieById({ variables: payload })

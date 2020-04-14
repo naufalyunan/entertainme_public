@@ -27,13 +27,14 @@ export default function UpdateSeriesForm() {
 
 	const submitUpdateSeries = (e) => {
 		e.preventDefault()
+		console.log(data.getSeriesById.tags)
 		const payload = {
 			_id: id,
 			title,
 			overview,
 			poster_path,
 			popularity: Number(popularity),
-			tags
+			tags: tags.length > 0 ? tags : data.getSeriesById.tags
 		}
 		console.log(payload.title)
 		updateSeries({ variables: payload })

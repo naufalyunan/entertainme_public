@@ -35,6 +35,7 @@ export default function UpdateMovieForm() {
 			popularity: Number(popularity),
 			tags
 		}
+		console.log(payload)
 		updateMovieById({ variables: payload })
 		history.push('/entertainme/movies')
 	}
@@ -65,7 +66,7 @@ export default function UpdateMovieForm() {
 						value={ popularity }/><br/>
 					<input onChange={ e => {
 						const arrTags = e.target.value.split(' ')
-						setTags(arrTags)
+						setTags(arrTags)						
 					} } 
 						className="input"
 						type="text" 

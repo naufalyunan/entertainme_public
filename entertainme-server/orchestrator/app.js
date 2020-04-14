@@ -181,6 +181,8 @@ const resolvers = {
 				data: data
 			})
 				.then(({ data }) => {
+					console.log('==')
+					console.log(data)
 					redis.del('movies')
 					updated = data
 					return axios.get('http://localhost:3010/movies')

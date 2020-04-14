@@ -50,6 +50,7 @@ class ControllerMovie {
 		const id = req.params.id
 		let oldMovie
 		let toUpdate 
+		console.log('ini tags:',tags)
 		Movie.findById(id)
 			.then(result => {
 				if (!result) {
@@ -64,8 +65,9 @@ class ControllerMovie {
 						overview: overview || oldMovie.overview,
 						poster_path: poster_path || oldMovie.poster_path,
 						popularity: popularity || oldMovie.popularity,
-						tags: tags||oldMovie.tags
+						tags: tags.length < 0 ? oldMovie.tags : tags
 					}
+					console.log(toUpdate)
 					return Movie.update({ _id: ObjectId(id) }, toUpdate )
 				}
 			})
